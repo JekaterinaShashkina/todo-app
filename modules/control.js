@@ -49,6 +49,8 @@ export const completeTask = (list) => {
       task.querySelector('.statue').textContent = 'Выполнена';
       task.classList.remove('table-light');
       task.classList.add('table-success');
+      task.querySelector('.task').classList.add('text-decoration-line-through');
+
       console.log();
     }
   });

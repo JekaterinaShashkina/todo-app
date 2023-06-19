@@ -19,10 +19,11 @@ export const renderApp = () => {
   const form = createForm();
   const table = createTable();
   app.append(title, form, table);
+  console.log(table.table.tbody);
 
   return {
     form,
-    list: table.table,
+    list: table.table.tbody,
   };
 };
 

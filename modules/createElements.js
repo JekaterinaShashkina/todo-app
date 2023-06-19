@@ -67,8 +67,10 @@ export const createTable = () => {
   );
   tableWrapper.table = table;
   const tbody = document.createElement('tbody');
+  table.tbody = tbody;
   table.append(thead, tbody);
   tableWrapper.append(table);
+  console.log(table.tbody);
   return tableWrapper;
 };
 
@@ -91,6 +93,7 @@ export const createRow = (obj, index) => {
   const tdBtns = document.createElement('td');
   const btnDel = document.createElement('button');
   btnDel.classList.add('btn', 'btn-danger');
+  btnDel.style.marginRight = 20 + 'px';
   btnDel.type = 'button';
   btnDel.textContent = 'Удалить';
 
