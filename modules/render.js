@@ -19,7 +19,6 @@ export const renderApp = () => {
   const form = createForm();
   const table = createTable();
   app.append(title, form, table);
-  console.log(table.table);
 
   return {
     form,
@@ -27,8 +26,10 @@ export const renderApp = () => {
   };
 };
 
-export const renderRow = (elem, data) => {
-  const allRow = data.map(createRow);
-  elem.append(...allRow);
+export const renderRow = (arr, table) => {
+  // table.textContent = '';
+  const allRow = arr.map(createRow);
+  console.log(...allRow);
+  table.append(...allRow);
   return allRow;
 };
