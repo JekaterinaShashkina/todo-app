@@ -1,7 +1,12 @@
 import { createRow } from './createElements.js';
 import { dataArray } from './dataArray.js';
 import { renderRow } from './render.js';
-import { removeStorage, setStorage } from './storage.js';
+import {
+  changeStorageItem,
+  getStorage,
+  removeStorage,
+  setStorage,
+} from './storage.js';
 
 const addTaskPage = (task, list) => {
   list.append(createRow(task));
@@ -10,7 +15,6 @@ const addTaskPage = (task, list) => {
 export const formControl = (form, list, user) => {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log(e.target);
     const formData = new FormData(e.target);
     formData.append('statue', 'В процессе');
     formData.append('id', Math.random().toString().substring(2, 10));
@@ -20,8 +24,9 @@ export const formControl = (form, list, user) => {
     // renderRow(dataArray, list);
     addTaskPage(newTask, list);
     setStorage(user, newTask);
-
     form.reset();
+    form.addBtn.setAttribute('disabled', '');
+    // activeBtn(form.input, form.addBtn);
     return newTask;
   });
 };
@@ -40,18 +45,36 @@ export const deleteControl = (list, user) => {
   });
 };
 
-export const completeTask = (list) => {
+export const completeTask = (list, user) => {
   list.addEventListener('click', (e) => {
     const target = e.target;
     if (target.closest('.btn-success')) {
       console.log('complete');
       const task = target.closest('.table-task');
       task.querySelector('.statue').textContent = 'Выполнена';
-      task.classList.remove('table-light');
-      task.classList.add('table-success');
-      task.querySelector('.task').classList.add('text-decoration-line-through');
-
-      console.log();
+      completeTaskStyle(task);
+      console.log(task);
+      const tasks = getStorage(user);
+      const id = task.querySelector('.id').textContent;
+      console.log(id);
+      console.log(tasks);
+      changeStorageItem(id, user, task);
     }
+  });
+};
+const completeTaskStyle = (task) => {
+  task.classList.remove('table-light');
+  task.classList.add('table-success');
+  task.querySelector('.task').classList.add('text-decoration-line-through');
+};
+
+export const activeBtn = (input, btn) => {
+  input.addEventListener('input', () => {
+    btn.disabled = !input.value.length;
+  });
+};
+export const resetBtn = (resBtn, addBtn) => {
+  resBtn.addEventListener('click', () => {
+    addBtn.setAttribute('disabled', '');
   });
 };

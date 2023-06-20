@@ -29,6 +29,10 @@ export const createForm = () => {
       text: 'Очистить',
     },
   ]);
+  buttonGroup.btns[0].setAttribute('disabled', '');
+  formEnter.addBtn = buttonGroup.btns[0];
+  formEnter.resBtn = buttonGroup.btns[1];
+  formEnter.input = enterInput;
   formEnter.append(enterLabel, ...buttonGroup.btns);
 
   return formEnter;

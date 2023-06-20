@@ -16,3 +16,14 @@ export const removeStorage = (id, key) => {
   });
   localStorage.setItem(key, JSON.stringify(tasks));
 };
+export const changeStorageItem = (id, key, item) => {
+  let tasks = getStorage(key);
+  tasks.forEach((task) => {
+    if (task.id === id) {
+      tasks.splice(task, 1);
+      console.log(item);
+      tasks.push(item);
+    }
+  });
+  localStorage.setItem(key, JSON.stringify(tasks));
+};
