@@ -1,3 +1,4 @@
+import { completeTaskStyle } from './control.js';
 import {
   createForm,
   createRow,
@@ -19,18 +20,23 @@ export const renderApp = () => {
   const form = createForm();
   const table = createTable();
   app.append(title, form, table);
-  console.log(table.table.tbody);
+  // console.log(table.table.tbody);
 
   return {
     form,
     list: table.table.tbody,
   };
 };
-
 export const renderRow = (arr, table) => {
-  // table.textContent = '';
+  table.textContent = '';
   const allRow = arr.map(createRow);
-  console.log(...allRow);
+  allRow.forEach((elem) => {
+    const el = elem.querySelector('.statue').textContent;
+    if (el === 'Выполнено') {
+      completeTaskStyle(elem);
+    }
+  });
+  // console.log(...allRow);
   table.append(...allRow);
   return allRow;
 };

@@ -16,13 +16,14 @@ export const removeStorage = (id, key) => {
   });
   localStorage.setItem(key, JSON.stringify(tasks));
 };
-export const changeStorageItem = (id, key, item) => {
+export const changeStorageItem = (id, key) => {
   let tasks = getStorage(key);
+  console.log(tasks);
   tasks.forEach((task) => {
+    console.log(task);
     if (task.id === id) {
-      tasks.splice(task, 1);
-      console.log(item);
-      tasks.push(item);
+      console.log(task.statue);
+      task.statue = 'Выполнено';
     }
   });
   localStorage.setItem(key, JSON.stringify(tasks));

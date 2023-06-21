@@ -74,7 +74,6 @@ export const createTable = () => {
   table.tbody = tbody;
   table.append(thead, tbody);
   tableWrapper.append(table);
-  console.log(table.tbody);
   return tableWrapper;
 };
 
@@ -103,9 +102,15 @@ export const createRow = (obj, index) => {
 
   const btnEnd = document.createElement('button');
   btnEnd.classList.add('btn', 'btn-success');
+  btnEnd.style.marginRight = 20 + 'px';
   btnEnd.type = 'button';
   btnEnd.textContent = 'Завершить';
-  tdBtns.append(btnDel, btnEnd);
+
+  const btnEdit = document.createElement('button');
+  btnEdit.classList.add('btn', 'btn-secondary');
+  btnEdit.type = 'button';
+  btnEdit.textContent = 'Изменить';
+  tdBtns.append(btnDel, btnEnd, btnEdit);
 
   tr.append(tdNumber, tdId, tdTask, tdStatus, tdBtns);
   return tr;
