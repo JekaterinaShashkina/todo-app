@@ -60,6 +60,7 @@ export const completeTaskStyle = (task) => {
   task.classList.add('table-success');
   task.querySelector('.task').classList.add('text-decoration-line-through');
   task.querySelector('.btn-success').setAttribute('disabled', '');
+  task.querySelector('.btn-success').style.opacity = 'inherit';
 };
 export const editTask = (list, user) => {
   list.addEventListener('click', (e) => {
@@ -81,5 +82,18 @@ export const activeBtn = (input, btn) => {
 export const resetBtn = (resBtn, addBtn) => {
   resBtn.addEventListener('click', () => {
     addBtn.setAttribute('disabled', '');
+  });
+};
+
+export const modalControl = (modal) => {
+  console.log(modal.form);
+  modal.form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    console.log(e.target);
+    const formData = new FormData(e.target);
+    const objectUser = Object.fromEntries(formData);
+    const username = objectUser.name;
+    console.log(username);
+    return username;
   });
 };

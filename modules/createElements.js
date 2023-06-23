@@ -46,6 +46,8 @@ export const createForm = () => {
     },
   ]);
   buttonGroup.btns[0].setAttribute('disabled', '');
+  buttonGroup.btns[0].style.opacity = 'inherit';
+
   formEnter.addBtn = buttonGroup.btns[0];
   formEnter.resBtn = buttonGroup.btns[1];
   formEnter.input = enterInput;
@@ -135,4 +137,47 @@ export const createRow = (obj, index) => {
 
   tr.append(tdNumber, tdId, tdTask, tdImp, tdStatus, tdBtns);
   return tr;
+};
+
+export const createModal = () => {
+  const overlay = document.createElement('div');
+  overlay.classList.add('overlay', 'active');
+  overlay.style =
+    'top: 0px; right: 0px;position: fixed;bottom: 0;left: 0;background-color: rgba(100, 100, 100, 0.8);';
+  const modal = document.createElement('div');
+  modal.classList.add('modal__user');
+  modal.style = `
+  position: relative;
+  max-width: 500px;
+  max-height: 300px;
+  padding: 50px;
+  background-color: white;
+  margin: 100px auto;
+`;
+  overlay.modal = modal;
+
+  const modalTitle = document.createElement('h3');
+  modalTitle.textContent = 'Введите имя пользователя';
+
+  const modalForm = document.createElement('form');
+  modalForm.classList.add('d-flex', 'align-items-center', 'mb-3');
+  const formLabel = document.createElement('label');
+  formLabel.classList.add('form-group', 'me-3', 'mb-0');
+
+  const formInput = document.createElement('input');
+  formInput.classList.add('form-control');
+  formInput.name = 'name';
+  formInput.dataset.id = 'name';
+  formInput.placeholder = 'Имя пользователя';
+  formLabel.append(formInput);
+  const formBtn = document.createElement('button');
+  formBtn.classList.add('btn', 'btn-success');
+  formBtn.type = 'submit';
+  formBtn.textContent = 'Подтвердить';
+
+  modalForm.append(formLabel, formBtn);
+  modal.append(modalTitle, modalForm);
+  overlay.append(modal);
+  modal.form = modalForm;
+  return overlay;
 };
