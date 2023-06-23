@@ -170,6 +170,7 @@ export const createModal = () => {
   formInput.name = 'name';
   formInput.dataset.id = 'name';
   formInput.placeholder = 'Имя пользователя';
+  formInput.setAttribute('required', '');
   formLabel.append(formInput);
   const formBtn = document.createElement('button');
   formBtn.classList.add('btn', 'btn-success');

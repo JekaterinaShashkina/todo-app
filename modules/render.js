@@ -1,7 +1,6 @@
 import { completeTaskStyle } from './control.js';
 import {
   createForm,
-  createModal,
   createRow,
   createTable,
   createTitle,
@@ -39,7 +38,6 @@ export const renderRow = (arr, table) => {
       completeTaskStyle(elem);
     }
   });
-  // console.log(...allRow);
   table.append(...allRow);
   return allRow;
 };

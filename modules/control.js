@@ -8,19 +8,13 @@ import {
   setStorage,
 } from './storage.js';
 
-// const addTaskPage = (task, list) => {
-//   list.append(createRow(task));
-// };
-
 export const formControl = (form, list, user) => {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log(e.target);
     const formData = new FormData(e.target);
     formData.append('statue', 'В процессе');
     formData.append('id', Math.random().toString().substring(2, 10));
     const newTask = Object.fromEntries(formData);
-    console.log(newTask);
     setStorage(user, newTask);
     const obj = getStorage(user);
     renderRow(obj, list);
@@ -51,7 +45,6 @@ export const completeTask = (list, user) => {
       const task = target.closest('.table-task');
       task.querySelector('.statue').textContent = 'Выполнена';
       completeTaskStyle(task);
-      // const tasks = getStorage(user);
       const id = task.querySelector('.id').textContent;
       changeStorageItem(id, user);
     }
@@ -72,14 +65,9 @@ export const editTask = (list, user) => {
     if (target.closest('.btn-secondary')) {
       const task = target.closest('.table-task');
       const text = task.querySelector('.task').textContent;
-
-      console.log(text);
       const id = task.querySelector('.id').textContent;
       changeStorageTask(id, user, text);
     }
-  });
-  list.addEventListener('blur', () => {
-    console.log('kom');
   });
 };
 export const activeBtn = (input, btn) => {
@@ -93,15 +81,15 @@ export const resetBtn = (resBtn, addBtn) => {
   });
 };
 
-export const modalControl = () => {
-  const body = document.querySelector('body');
-  const overlay = createModal();
-  body.append(overlay);
-  overlay.modal.form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const objectUser = Object.fromEntries(formData);
-    overlay.classList.add('d-none');
-    return objectUser.name;
-  });
-};
+// export const modalControl = () => {
+//   const body = document.querySelector('body');
+//   const overlay = createModal();
+//   body.append(overlay);
+//   overlay.modal.form.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     const formData = new FormData(e.target);
+//     const objectUser = Object.fromEntries(formData);
+//     overlay.classList.add('d-none');
+//     return objectUser.name;
+//   });
+// };
