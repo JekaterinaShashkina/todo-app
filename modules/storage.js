@@ -25,3 +25,12 @@ export const changeStorageItem = (id, key) => {
   });
   localStorage.setItem(key, JSON.stringify(tasks));
 };
+export const changeStorageTask = (id, key, text) => {
+  let tasks = getStorage(key);
+  tasks.forEach((task) => {
+    if (task.id === id) {
+      task.task = text;
+    }
+  });
+  localStorage.setItem(key, JSON.stringify(tasks));
+};

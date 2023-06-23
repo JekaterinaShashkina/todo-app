@@ -1,6 +1,8 @@
+import { createModal } from './createElements.js';
 import { renderRow } from './render.js';
 import {
   changeStorageItem,
+  changeStorageTask,
   getStorage,
   removeStorage,
   setStorage,
@@ -59,19 +61,25 @@ export const completeTaskStyle = (task) => {
   task.classList.remove('table-light');
   task.classList.add('table-success');
   task.querySelector('.task').classList.add('text-decoration-line-through');
+  task.querySelector('.task').removeAttribute('contenteditable', 'true');
   task.querySelector('.btn-success').setAttribute('disabled', '');
   task.querySelector('.btn-success').style.opacity = 'inherit';
 };
+
 export const editTask = (list, user) => {
   list.addEventListener('click', (e) => {
     const target = e.target;
     if (target.closest('.btn-secondary')) {
       const task = target.closest('.table-task');
-      task.querySelector('.task').setAttribute('contenteditable', 'true');
+      const text = task.querySelector('.task').textContent;
+
+      console.log(text);
+      const id = task.querySelector('.id').textContent;
+      changeStorageTask(id, user, text);
     }
-    target.addEventListener('change', (e) => {
-      console.log('change', e.target);
-    });
+  });
+  list.addEventListener('blur', () => {
+    console.log('kom');
   });
 };
 export const activeBtn = (input, btn) => {
@@ -85,15 +93,15 @@ export const resetBtn = (resBtn, addBtn) => {
   });
 };
 
-export const modalControl = (modal) => {
-  console.log(modal.form);
-  modal.form.addEventListener('submit', (e) => {
+export const modalControl = () => {
+  const body = document.querySelector('body');
+  const overlay = createModal();
+  body.append(overlay);
+  overlay.modal.form.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log(e.target);
     const formData = new FormData(e.target);
     const objectUser = Object.fromEntries(formData);
-    const username = objectUser.name;
-    console.log(username);
-    return username;
+    overlay.classList.add('d-none');
+    return objectUser.name;
   });
 };

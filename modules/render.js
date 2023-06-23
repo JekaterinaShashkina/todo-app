@@ -17,15 +17,15 @@ export const renderApp = () => {
     'justify-content-center',
     'flex-column',
   );
-  const overlay = createModal();
   const title = createTitle();
   const form = createForm();
   const table = createTable();
-  app.append(overlay, title, form, table);
+  // const overlay = createModal();
+
+  app.append(title, form, table);
   // console.log(table.table.tbody);
 
   return {
-    modal: overlay.modal,
     form,
     list: table.table.tbody,
   };
