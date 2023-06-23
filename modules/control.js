@@ -1,4 +1,3 @@
-import { createModal } from './createElements.js';
 import { renderRow } from './render.js';
 import {
   changeStorageItem,
@@ -80,16 +79,3 @@ export const resetBtn = (resBtn, addBtn) => {
     addBtn.setAttribute('disabled', '');
   });
 };
-
-// export const modalControl = () => {
-//   const body = document.querySelector('body');
-//   const overlay = createModal();
-//   body.append(overlay);
-//   overlay.modal.form.addEventListener('submit', (e) => {
-//     e.preventDefault();
-//     const formData = new FormData(e.target);
-//     const objectUser = Object.fromEntries(formData);
-//     overlay.classList.add('d-none');
-//     return objectUser.name;
-//   });
-// };

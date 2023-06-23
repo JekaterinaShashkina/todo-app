@@ -11,9 +11,6 @@ import { renderApp, renderRow } from './modules/render.js';
 import { getStorage } from './modules/storage.js';
 
 const init = () => {
-  // const user = prompt('Введите имя пользователя ');
-  // // const user = modalControl();
-  // console.log(user);
   const body = document.querySelector('body');
   const overlay = createModal();
   body.append(overlay);
