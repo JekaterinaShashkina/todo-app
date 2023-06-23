@@ -16,6 +16,22 @@ export const createForm = () => {
   enterInput.name = 'task';
   enterInput.dataset.id = 'task';
   enterInput.placeholder = 'ввести задачу';
+
+  const dropList = document.createElement('select');
+  dropList.classList.add('form-select');
+  dropList.name = 'droplist';
+  dropList.style.width = 'auto';
+  dropList.style.marginRight = 20 + 'px';
+  dropList.dataset.id = 'droplist';
+  dropList.insertAdjacentHTML(
+    'beforeend',
+    ` <option selected disabled>Выбери важность задачи</option>
+      <option value="Обычная">Обычная</option>
+      <option value="Важная">Важная</option>
+      <option value="Срочная">Срочная</option>
+    </select>`,
+  );
+
   enterLabel.append(enterInput);
   const buttonGroup = createButtonsGroup([
     {
@@ -33,7 +49,8 @@ export const createForm = () => {
   formEnter.addBtn = buttonGroup.btns[0];
   formEnter.resBtn = buttonGroup.btns[1];
   formEnter.input = enterInput;
-  formEnter.append(enterLabel, ...buttonGroup.btns);
+  formEnter.droplist = dropList;
+  formEnter.append(enterLabel, dropList, ...buttonGroup.btns);
 
   return formEnter;
 };
@@ -63,6 +80,7 @@ export const createTable = () => {
     `<tr>
           <th>№</th>
           <th>Задача</th>
+          <th>Важность задачи</th>
           <th>Статус</th>
           <th>Действия</th>
 
@@ -78,7 +96,7 @@ export const createTable = () => {
 };
 
 export const createRow = (obj, index) => {
-  const { id, statue, task } = obj;
+  const { id, droplist, statue, task } = obj;
   const tr = document.createElement('tr');
   tr.classList.add('table-light', 'table-task');
   const tdNumber = document.createElement('td');
@@ -89,6 +107,9 @@ export const createRow = (obj, index) => {
   const tdTask = document.createElement('td');
   tdTask.classList.add('task');
   tdTask.textContent = task;
+  const tdImp = document.createElement('td');
+  tdImp.classList.add('important');
+  tdImp.textContent = droplist;
 
   const tdStatus = document.createElement('td');
   tdStatus.classList.add('statue');
@@ -112,6 +133,6 @@ export const createRow = (obj, index) => {
   btnEdit.textContent = 'Изменить';
   tdBtns.append(btnDel, btnEnd, btnEdit);
 
-  tr.append(tdNumber, tdId, tdTask, tdStatus, tdBtns);
+  tr.append(tdNumber, tdId, tdTask, tdImp, tdStatus, tdBtns);
   return tr;
 };

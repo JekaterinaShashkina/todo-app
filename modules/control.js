@@ -13,10 +13,12 @@ import {
 export const formControl = (form, list, user) => {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    console.log(e.target);
     const formData = new FormData(e.target);
     formData.append('statue', 'В процессе');
     formData.append('id', Math.random().toString().substring(2, 10));
     const newTask = Object.fromEntries(formData);
+    console.log(newTask);
     setStorage(user, newTask);
     const obj = getStorage(user);
     renderRow(obj, list);
@@ -59,7 +61,18 @@ export const completeTaskStyle = (task) => {
   task.querySelector('.task').classList.add('text-decoration-line-through');
   task.querySelector('.btn-success').setAttribute('disabled', '');
 };
-
+export const editTask = (list, user) => {
+  list.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target.closest('.btn-secondary')) {
+      const task = target.closest('.table-task');
+      task.querySelector('.task').setAttribute('contenteditable', 'true');
+    }
+    target.addEventListener('change', (e) => {
+      console.log('change', e.target);
+    });
+  });
+};
 export const activeBtn = (input, btn) => {
   input.addEventListener('input', () => {
     btn.disabled = !input.value.length;

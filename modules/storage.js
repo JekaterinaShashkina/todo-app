@@ -18,11 +18,8 @@ export const removeStorage = (id, key) => {
 };
 export const changeStorageItem = (id, key) => {
   let tasks = getStorage(key);
-  console.log(tasks);
   tasks.forEach((task) => {
-    console.log(task);
     if (task.id === id) {
-      console.log(task.statue);
       task.statue = 'Выполнено';
     }
   });
