@@ -109,7 +109,7 @@ export const createRow = (obj, index) => {
   const tdTask = document.createElement('td');
   tdTask.classList.add('task');
   tdTask.textContent = task;
-  tdTask.setAttribute('contenteditable', 'true');
+  // tdTask.setAttribute('contenteditable', 'true');
   const tdImp = document.createElement('td');
   tdImp.classList.add('important');
   tdImp.textContent = droplist;

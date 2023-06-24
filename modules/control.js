@@ -40,11 +40,22 @@ export const deleteControl = (list, user) => {
 export const completeTask = (list, user) => {
   list.addEventListener('click', (e) => {
     const target = e.target;
-    if (target.closest('.btn-success')) {
-      const task = target.closest('.table-task');
+    const task = target.closest('.table-task');
+    const id = task.querySelector('.id').textContent;
+    if (
+      target.closest('.btn-success') &&
+      task.querySelector('.statue').textContent === 'В процессе'
+    ) {
       task.querySelector('.statue').textContent = 'Выполнена';
       completeTaskStyle(task);
-      const id = task.querySelector('.id').textContent;
+      changeStorageItem(id, user);
+    } else {
+      task.querySelector('.statue').textContent = 'В процессе';
+      task.classList.add('table-light');
+      task.classList.remove('table-success');
+      task
+        .querySelector('.task')
+        .classList.remove('text-decoration-line-through');
       changeStorageItem(id, user);
     }
   });
@@ -53,18 +64,30 @@ export const completeTaskStyle = (task) => {
   task.classList.remove('table-light');
   task.classList.add('table-success');
   task.querySelector('.task').classList.add('text-decoration-line-through');
-  task.querySelector('.task').removeAttribute('contenteditable', 'true');
-  task.querySelector('.btn-success').setAttribute('disabled', '');
-  task.querySelector('.btn-success').style.opacity = 'inherit';
 };
 
 export const editTask = (list, user) => {
   list.addEventListener('click', (e) => {
     const target = e.target;
-    if (target.closest('.btn-secondary')) {
-      const task = target.closest('.table-task');
-      const text = task.querySelector('.task').textContent;
+    const task = target.closest('.table-task');
+    const btn = task.querySelector('.btn-secondary');
+    if (
+      target.closest('.btn-secondary') &&
+      target.closest('.btn-secondary').textContent === 'Изменить'
+    ) {
+      const text = task.querySelector('.task');
+      text.setAttribute('contenteditable', 'true');
+      text.style.border = '3px solid';
+      btn.textContent = 'Сохранить';
+    } else if (
+      target.closest('.btn-secondary') &&
+      target.closest('.btn-secondary').textContent === 'Сохранить'
+    ) {
       const id = task.querySelector('.id').textContent;
+      const text = task.querySelector('.task').textContent;
+      task.querySelector('.task').removeAttribute('contenteditable', 'true');
+      task.querySelector('.task').style = 'border: none;';
+      btn.textContent = 'Изменить';
       changeStorageTask(id, user, text);
     }
   });

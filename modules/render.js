@@ -19,11 +19,7 @@ export const renderApp = () => {
   const title = createTitle();
   const form = createForm();
   const table = createTable();
-  // const overlay = createModal();
-
   app.append(title, form, table);
-  // console.log(table.table.tbody);
-
   return {
     form,
     list: table.table.tbody,
