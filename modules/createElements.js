@@ -46,7 +46,6 @@ export const createForm = () => {
     },
   ]);
   buttonGroup.btns[0].setAttribute('disabled', '');
-  buttonGroup.btns[0].style.opacity = 'inherit';
 
   formEnter.addBtn = buttonGroup.btns[0];
   formEnter.resBtn = buttonGroup.btns[1];

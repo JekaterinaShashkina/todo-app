@@ -1,7 +1,7 @@
 import {
   activeBtn,
   completeTask,
-  deleteControl,
+  deleteTask,
   editTask,
   formControl,
   resetBtn,
@@ -23,13 +23,14 @@ const init = () => {
     const obj = getStorage(user.name);
     activeBtn(form.input, form.addBtn);
     resetBtn(form.resBtn, form.addBtn);
+
+    editTask(list, user.name);
+    formControl(form, list, user.name);
+    completeTask(list, user.name);
     if (obj) {
       renderRow(obj, list);
     }
-    formControl(form, list, user.name);
-    deleteControl(list, user.name);
-    completeTask(list, user.name);
-    editTask(list, user.name);
+    deleteTask(list, user.name, obj);
   });
 };
 

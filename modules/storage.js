@@ -7,24 +7,28 @@ export const setStorage = (key, value) => {
   tasks.push(value);
   return localStorage.setItem(key, JSON.stringify(tasks));
 };
+
 export const removeStorage = (id, key) => {
   let tasks = getStorage(key);
   tasks.forEach((task) => {
     if (task.id === id) {
-      tasks.splice(task, 1);
+      const i = tasks.indexOf(task);
+      tasks.splice(i, 1);
     }
+    localStorage.setItem(key, JSON.stringify(tasks));
   });
-  localStorage.setItem(key, JSON.stringify(tasks));
+  return tasks;
 };
-export const changeStorageItem = (id, key) => {
+export const changeStorageItem = (id, key, string) => {
   let tasks = getStorage(key);
   tasks.forEach((task) => {
     if (task.id === id) {
-      task.statue = 'Выполнено';
+      task.statue = string;
     }
   });
   localStorage.setItem(key, JSON.stringify(tasks));
 };
+
 export const changeStorageTask = (id, key, text) => {
   let tasks = getStorage(key);
   tasks.forEach((task) => {

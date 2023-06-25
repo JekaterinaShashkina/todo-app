@@ -30,7 +30,7 @@ export const renderRow = (arr, table) => {
   const allRow = arr.map(createRow);
   allRow.forEach((elem) => {
     const el = elem.querySelector('.statue').textContent;
-    if (el === 'Выполнено') {
+    if (el === 'Выполнена') {
       completeTaskStyle(elem);
     }
   });

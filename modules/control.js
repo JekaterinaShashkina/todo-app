@@ -22,16 +22,17 @@ export const formControl = (form, list, user) => {
     return newTask;
   });
 };
-export const deleteControl = (list, user) => {
+export const deleteTask = (list, user, obj) => {
   list.addEventListener('click', (e) => {
     const target = e.target;
     if (target.closest('.btn-danger')) {
       const result = window.confirm('Are you sure?');
       if (result) {
         const task = target.closest('.table-task');
-        task.remove();
         const id = task.querySelector('.id').textContent;
-        removeStorage(id, user);
+        task.remove();
+        const tasks = removeStorage(id, user);
+        renderRow(tasks, list);
       }
     }
   });
@@ -48,7 +49,7 @@ export const completeTask = (list, user) => {
     ) {
       task.querySelector('.statue').textContent = 'Выполнена';
       completeTaskStyle(task);
-      changeStorageItem(id, user);
+      changeStorageItem(id, user, 'Выполнена');
     } else {
       task.querySelector('.statue').textContent = 'В процессе';
       task.classList.add('table-light');
@@ -56,7 +57,7 @@ export const completeTask = (list, user) => {
       task
         .querySelector('.task')
         .classList.remove('text-decoration-line-through');
-      changeStorageItem(id, user);
+      changeStorageItem(id, user, 'В процессе');
     }
   });
 };
